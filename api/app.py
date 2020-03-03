@@ -32,5 +32,5 @@ def create_app():
         song = sp.search(f'{title} {artist}', type='track', limit=1)
         song_id = song['tracks']['items'][0]['id']
         features = sp.audio_features([song_id])
-        return features[0]
+        return jsonify(features[0])
     return app
