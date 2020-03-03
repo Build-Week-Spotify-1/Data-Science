@@ -8,9 +8,9 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return print('Hi')
+    return 'Hi'
 
 @app.route('/song', methods=['GET'])
 def song_info():
