@@ -36,3 +36,4 @@ def create_app():
         song_id = song['tracks']['items'][0]['id']
         features = sp.audio_features([song_id])
         return features[0]
+    return app
