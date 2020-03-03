@@ -13,9 +13,8 @@ def create_app():
     @app.route('/song', methods=['GET'])
     def song_info():
         '''This route returns details about the specified song'''
-        json = request.get_json(force=True)
-        title = json['title']
-        artist = json['artist']
+        title = request.args.get('title')
+        artist = request.args.get('artist')
 
         song = sp.search(f'{title} {artist}', type='track', limit=1)
         info = {'title': song['tracks']['items'][0]['name'],
@@ -27,10 +26,8 @@ def create_app():
     @app.route('/suggestions', methods=['GET'])
     def suggest():
 
-        json = request.get_json(force=True)
-
-        title = json['title']
-        artist = json['artist']
+        title = request.args.get('title')
+        artist = request.args.get('artist')
 
         song = sp.search(f'{title} {artist}', type='track', limit=1)
         song_id = song['tracks']['items'][0]['id']
