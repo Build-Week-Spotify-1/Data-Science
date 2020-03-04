@@ -62,7 +62,7 @@ def create_app():
               'album': t['album']['name'],
               'image': t['album']['images'][1]['url']}for t in s]
         af = sp.audio_features(ids)
-        af = [{feat:af[ind][feat]/(song_features[feat]+.0001)*100 for feat in features} for ind in range(len(af))]
+        af = [{feat:af[ind][feat]/(song_features[feat]+.0001) for feat in features} for ind in range(len(af))]
         suggestions = {'tracks':[{'info':s[ind], 'features':af[ind]} for ind in range(len(af))]}
         return jsonify(suggestions)
     return app
