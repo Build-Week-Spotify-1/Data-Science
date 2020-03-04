@@ -1,11 +1,28 @@
-from flask import Flask, request, jsonify
+
+import pandas as pd
+import numpy as np
 import spotipy
+from joblib import load
+from flask import Flask, request, jsonify
 from spotipy.oauth2 import SpotifyClientCredentials
 
 def create_app():
     app = Flask(__name__)
     client_credentials_manager = SpotifyClientCredentials(client_id='69d7960353114a25ad479492dd0346eb', client_secret='6190f3b487b448d6b0d8340c01baf3ab')
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    nn = load('static/spotify2.joblib')
+    id_map = np.array(pd.read_csv('static/IDS2.csv')).reshape(1,-1)[0]
+    features = ['danceability',
+                'energy',
+                'key',
+                'loudness',
+                'mode',
+                'speechiness',
+                'acousticness',
+                'instrumentalness',
+                'liveness',
+                'valence',
+                'tempo']
     @app.route('/', methods=['GET'])
     def index():
         return 'Hi'
@@ -31,6 +48,18 @@ def create_app():
 
         song = sp.search(f'{title} {artist}', type='track', limit=1)
         song_id = song['tracks']['items'][0]['id']
-        features = sp.audio_features([song_id])
-        return jsonify(features[0])
+        x = sp.audio_features([song_id])[0]
+        x = np.array([x[feature] for feature in features]).reshape(1,-1)
+        ids = nn.kneighbors(x)[1][0]
+        ids = [id_map[id] for id in ids]
+        s = sp.tracks(ids)
+        s = [s['tracks'][ind] for ind in range(len(s['tracks']))]
+        s = [{'title': t['name'],
+              'artist': t['artists'][0]['name'],
+              'album': t['album']['name'],
+              'image': t['album']['images'][1]['url']}for t in s]
+        af = sp.audio_features(ids)
+        af = [{feat:af[ind][feat] for feat in features} for ind in range(len(af))]
+        suggestions = {'tracks':[{'info':s[ind], 'features':af[ind]} for ind in range(len(af))]}
+        return jsonify(suggestions)
     return app

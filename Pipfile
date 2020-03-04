@@ -9,6 +9,9 @@ verify_ssl = true
 flask = "*"
 spotipy = "*"
 gunicorn = "*"
+numpy = "*"
+scikit-learn = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
