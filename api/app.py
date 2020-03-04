@@ -50,9 +50,9 @@ def create_app():
         song_id = song['tracks']['items'][0]['id']
         x = sp.audio_features([song_id])[0]
         x = np.array([x[feature] for feature in features]).reshape(1,-1)
-        x[2] = x[2]/11
-        x[3] = x[3]/58.882
-        x[10] = x[10]/249.983
+        x[0][2] = x[0][2]/11
+        x[0][3] = x[0][3]/58.882
+        x[0][10] = x[0][10]/249.983
         ids = nn.kneighbors(x)[1][0]
         ids = [id_map[id] for id in ids]
         s = sp.tracks(ids)
