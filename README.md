@@ -36,7 +36,7 @@ The Song Suggester has two functionalities on the DataScience side:
 
 The DS api for this project has 3 endpoints 
 
-* ["spotify-suggestor.herokuapp.com/song?title=&artist="] (returns information about the song)
+* `spotify-suggestor.herokuapp.com/song?title=&artist=` (returns information about the song)
 * ["spotify-suggestor.herokuapp.com/suggestions?title=&artist="] (returns 6 most similar songs, along with data for graphing)
 * ["spotify-suggestor.herokuapp.com/least?title=&artist="] (returns least similar song)
 
