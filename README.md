@@ -1,5 +1,5 @@
 # Spotify Song Suggester
-This project is part of Lambda School Build week March 2020
+This project is part of the LambdaSchool Build week March 2020
 
 # Project Objective
 The Song Suggester has two functionalities on the DataScience side:
