@@ -31,3 +31,17 @@ The Song Suggester has two functionalities on the DataScience side:
 *  Point 9 shows the least similar song search using Numpy. 
 *  Point 10 holds the code to get a 30 second demo of a song via the spotipy api. 
 *  Point 11 contains a short discussion why we chose Knn and did not opt for a neural net.
+
+# API
+
+The DS api for this project has 3 endpoints 
+
+* <spotify-suggestor.herokuapp.com/song?title=&artist=> (returns information about the song)
+* <spotify-suggestor.herokuapp.com/suggestions?title=&artist=> (returns 6 most similar songs, along with data for graphing)
+* <spotify-suggestor.herokuapp.com/least?title=&artist=> (returns least similar song)
+
+Url Parameters: title (song title) artist (artist)
+
+Results will be returned as long as one of the parameters is entered, and is a valid artist name/song title
+
+User input is sent to the spotify api in order to retrieve correct song info and audio features
