@@ -23,7 +23,11 @@ The Song Suggester has two functionalities on the DataScience side:
 
 * The trained model is under static
 * The train data aswell
-* Please consult the notebook to get an understanding of the spotipy api etc.
 
+# Notebook: Knn_and_least_similar_song
 
-
+*  Points 1 - 3 document the steps that were taken to create the training data of the model
+*  Points 4 -8 demonstrate the training of the knn-model and testing it by using the spotipy-api to generate input.
+*  Point 9 shows the least similar song search using Numpy. 
+*  Point 10 holds the code to get a 30 second demo of a song via the spotipy api. 
+*  Point 11 contains a short discussion why we chose Knn and did not opt for a neural net.
