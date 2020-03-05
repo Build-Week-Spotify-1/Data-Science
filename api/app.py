@@ -15,6 +15,7 @@ def create_app():
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     nn = load('static/spotify2.joblib')
     id_map = np.array(pd.read_csv('static/IDS2.csv')).reshape(1,-1)[0]
+    data = pd.read_csv('static/train.csv').values
     features = ['danceability',
                 'energy',
                 'key',
@@ -103,16 +104,22 @@ def create_app():
         else:
             song_features = sp.audio_features(song_id)[0]
             x = np.array([song_features[feature] for feature in features]).reshape(1,-1)
-            # Preprocess, notice everything here is the same, except the values are subtracted from 1
-            # this is how we get the model to return the least similar song
+            # Preprocess the input
             x[0][2] = x[0][2]/11
             x[0][3] = x[0][3]/58.882
             x[0][10] = x[0][10]/249.983
-            x = 1 - x
+            
+            # calculate the distances between input song and training data
+            def distancify(row_of_data):
+                return np.linalg.norm(x - row_of_data)
+
+            distances = np.apply_along_axis(distancify, axis=1, arr=data)
+
+            index_least_similar_song = np.where(distances == np.amax(distances))[0][0]
+
+            id_least = id_map[index_least_similar_song]
             #return the information of the least similar song
-            out = nn.kneighbors(x)[1][0][0]
-            out = id_map[out]
-            s = sp.track(out)
+            s = sp.track(id_least)
             s = {'title': s['name'],
                  'artist': s['artists'][0]['name'],
                  'album': s['album']['name'],
