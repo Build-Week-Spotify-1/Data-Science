@@ -68,4 +68,29 @@ def create_app():
             af = [{feat:af[ind][feat]/(song_features[feat]+.0001) for feat in features} for ind in range(len(af))]
             suggestions = {'tracks':[{'info':s[ind], 'features':af[ind]} for ind in range(len(af))]}
             return jsonify(suggestions)
+
+    @app.route('/least', methods=['GET'])
+    def least():
+        title = request.args.get('title')
+        artist = request.args.get('artist')
+        song = sp.search(f'{title} {artist}', type='track', limit=1)
+        try:
+            song_id = song['tracks']['items'][0]['id']
+        except:
+            return("Sorry, we couldn't find the song you're looking for.")
+        else:
+            song_features = sp.audio_features(song_id)[0]
+            x = np.array([song_features[feature] for feature in features]).reshape(1,-1)
+            x[0][2] = x[0][2]/11
+            x[0][3] = x[0][3]/58.882
+            x[0][10] = x[0][10]/249.983
+            x = 1 - x
+            out = nn.kneighbors(x)[1][0][0]
+            out = id_map[out]
+            s = sp.track(out)
+            s = {'title': s['name'],
+                 'artist': s['artists'][0]['name'],
+                 'album': s['album']['name'],
+                 'image': s['album']['images'][1]['url']}
+            return jsonify(s)
     return app
