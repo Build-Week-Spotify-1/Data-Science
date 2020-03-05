@@ -1,3 +1,33 @@
-# Data-Science
+# Spotify Song Suggester
+This project is part of the LambdaSchool Build week March 2020
 
-[Product Vision Document](https://docs.google.com/document/d/1mfx4VSyZvkC7BVNo1Vz5nHS8Sx7mu_JJmQVh0p0T9o8/)
+# Project Objective
+The Song Suggester has two functionalities on the DataScience side:
+
+* Given a song chosen by the user the API will return the 6 most similar songs from a database of over 300.000 songs.
+* Given a song chosen by the user the API will return the least similar song. (DS-part ready for deployment)
+
+# Methods Used 
+
+* knn
+
+# Python 3.7 Libraries 
+
+* Pandas
+* Joblib
+* flask
+* Numpy
+* sklearn
+
+# Setup
+
+* The trained model is under static
+* The train data aswell
+
+# Notebook: Knn_and_least_similar_song
+
+*  Points 1 - 3 document the steps that were taken to create the training data of the model
+*  Points 4 -8 demonstrate the training of the knn-model and testing it by using the spotipy-api to generate input.
+*  Point 9 shows the least similar song search using Numpy. 
+*  Point 10 holds the code to get a 30 second demo of a song via the spotipy api. 
+*  Point 11 contains a short discussion why we chose Knn and did not opt for a neural net.
