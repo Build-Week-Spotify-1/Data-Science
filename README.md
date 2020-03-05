@@ -8,12 +8,23 @@ The Song Suggester has two functionalities on the DataScience side:
 * Given a song chosen by the user the API will return the least similar song. (DS-part ready for deployment)
 
 # Methods Used 
+
 * knn
 
 # Python 3.7 Libraries 
+
 * Pandas
 * Joblib
 * flask
 * Numpy
 * sklearn
+
+# Setup
+
+* The trained model is under static
+* Joblib
+* flask
+* Numpy
+* sklearn
+
 
