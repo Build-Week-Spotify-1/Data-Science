@@ -22,9 +22,8 @@ The Song Suggester has two functionalities on the DataScience side:
 # Setup
 
 * The trained model is under static
-* Joblib
-* flask
-* Numpy
-* sklearn
+* The train data aswell
+* Please consult the notebook to get an understanding of the spotipy api etc.
+
 
 
