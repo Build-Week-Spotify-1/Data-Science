@@ -41,7 +41,8 @@ def create_app():
         artist = request.args.get('artist')
 
         song = sp.search(f'{title} {artist}', type='track', limit=1)
-        info = {'title': song['tracks']['items'][0]['name'],
+        info = {'id': song['tracks']['items'][0]['id'],
+                'title': song['tracks']['items'][0]['name'],
                 'artist': song['tracks']['items'][0]['artists'][0]['name'],
                 'album': song['tracks']['items'][0]['album']['name']
                 }
@@ -84,7 +85,7 @@ def create_app():
                   'image': t['album']['images'][1]['url']}for t in s]
             af = sp.audio_features(ids)
             af = [{feat:af[ind][feat]/(song_features[feat]+.0001) for feat in features} for ind in range(len(af))]
-            suggestions = {'tracks':[{'info':s[ind], 'features':af[ind]} for ind in range(len(af))]}
+            suggestions = {'song': song, 'tracks':[{'info':s[ind], 'features':af[ind]} for ind in range(len(af))]}
             return jsonify(suggestions)
 
     @app.route('/least', methods=['GET'])
