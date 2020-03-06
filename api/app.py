@@ -79,7 +79,8 @@ def create_app():
             # Retrieve the song information and audio features, return them as a json object
             s = sp.tracks(ids)
             s = [s['tracks'][ind] for ind in range(len(s['tracks']))]
-            s = [{'title': t['name'],
+            s = [{'id': t['id'],
+                  'title': t['name'],
                   'artist': t['artists'][0]['name'],
                   'album': t['album']['name'],
                   'image': t['album']['images'][1]['url']}for t in s]
