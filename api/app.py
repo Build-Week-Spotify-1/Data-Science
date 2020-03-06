@@ -61,7 +61,8 @@ def create_app():
             ids = [id_map[id] for id in ids]
             s = sp.tracks(ids)
             s = [s['tracks'][ind] for ind in range(len(s['tracks']))]
-            s = [{'title': t['name'],
+            s = [{'id': t['id'],
+                  'title': t['name'],
                   'artist': t['artists'][0]['name'],
                   'album': t['album']['name'],
                   'image': t['album']['images'][1]['url']}for t in s]
