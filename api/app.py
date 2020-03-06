@@ -122,7 +122,8 @@ def create_app():
             id_least = id_map[index_least_similar_song]
             #return the information of the least similar song
             s = sp.track(id_least)
-            s = {'title': s['name'],
+            s = {'id': s['id'],
+                 'title': s['name'],
                  'artist': s['artists'][0]['name'],
                  'album': s['album']['name'],
                  'image': s['album']['images'][1]['url']}
